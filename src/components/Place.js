@@ -20,6 +20,8 @@ export default function Place(props) {
     const [hideAddReview, setHideAddReview] = useState(true);
     const [reviewList, setReviewList] = useState([]);
 
+    const [hidePlace, setHidePlace] = useState(false);
+
 
     // Toggle the update info textbox
     let updateInfo = (event) => {
@@ -55,11 +57,13 @@ export default function Place(props) {
         //setReviewList(reviewList);
     }
 
-
+    let deletePlace = (event) => {
+        setHidePlace(true);
+    }
 
 
     return (
-        <Container className='Place'>
+        <Container className='Place' hidden={hidePlace}>
             <Col>
                 <Row>
                     <h2>{props.name}</h2>
@@ -91,7 +95,7 @@ export default function Place(props) {
                 </Row>
                 <Row>
                     <Button onClick={updateInfo}>Update</Button> &nbsp;&nbsp;&nbsp;
-                    <Button >Delete</Button> &nbsp;&nbsp;&nbsp;
+                    <Button onClick={deletePlace}>Delete</Button> &nbsp;&nbsp;&nbsp;
                     <Button onClick={addAReview}>Add Review</Button>
                 </Row>
             </Col>
