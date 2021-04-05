@@ -52,7 +52,7 @@ export default function Place(props) {
     let onReviewSubmitted = (event) => {
         setHideAddReview(true);
         reviewList.push(<Review text={nextReview} />);
-        setReviewList(reviewList);
+        //setReviewList(reviewList);
     }
 
 
@@ -61,6 +61,9 @@ export default function Place(props) {
     return (
         <Container className='Place'>
             <Col>
+                <Row>
+                    <h2>{props.name}Title</h2>
+                </Row>
                 <Row>
                     Info here. {placeInfo}
                 </Row>
@@ -73,7 +76,7 @@ export default function Place(props) {
                     </InputGroup>
                 </Row>
                 <Row>
-                    <h3>Reviews:</h3>
+                    <h4>Reviews:</h4>
                 </Row>
                 <Row>
                     {reviewList}
