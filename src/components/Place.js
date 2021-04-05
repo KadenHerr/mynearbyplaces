@@ -6,7 +6,6 @@ import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
 import { useState } from 'react';
 import Review from './Review';
-import ReviewList from './ReviewList';
 
 
 import '../App.css'
@@ -14,21 +13,34 @@ import '../App.css'
 
 export default function Place(props) {
 
+    const [hideUpateInfo, setHideUpateInfo] = useState(true);
+    const [placeInfo, setPlaceInfo] = useState(props.placeInfo);
+
     const [nextReview, setNextReview] = useState('');
     const [hideAddReview, setHideAddReview] = useState(true);
-    const [reviewList, setReviewList] = useState([<Review text="This location does not have any reviews yet."/>]);
-    const [reviewCount, setReviewCount] = useState(0);
+    const [reviewList, setReviewList] = useState([]);
+
+
+    // Toggle the update info textbox
+    let updateInfo = (event) => {
+        setHideUpateInfo(!hideUpateInfo);
+    }
+
+    // Get the updated text info
+    let onInfoInput = (event) => {
+        setPlaceInfo(event.target.value);
+    }
+
+    // Add a review to the review list from the review input (NO ACTUAL USE)
+    let onInfoUpdated = (event) => {
+        setHideUpateInfo(true);
+        setPlaceInfo(placeInfo);
+    }
+
 
     // Toggle the add review textbox
     let addAReview = (event) => {
         setHideAddReview(!hideAddReview);
-    }
-
-    // Add a review to the review list from the review input
-    let onReviewSubmitted = (event) => {
-        setHideAddReview(true);
-        reviewList.push(<Review text={nextReview}/>);
-        setReviewList(reviewList);
     }
 
     // Get the review text input
@@ -36,12 +48,29 @@ export default function Place(props) {
         setNextReview(event.target.value);
     }
 
+    // Add a review to the review list from the review input
+    let onReviewSubmitted = (event) => {
+        setHideAddReview(true);
+        reviewList.push(<Review text={nextReview} />);
+        setReviewList(reviewList);
+    }
+
+
+
 
     return (
         <Container className='Place'>
             <Col>
                 <Row>
-                    Info here. fsadkjf;olasdk fdsjfhsda ;fghds; fhsd break!!! safhndsapofjhasdpof sdpofd shf BREAK2!!! AFOPDSHFOWEIAFHJSDPOFHSD; FAPFSOEHUISPEHD Break3!!! akfopsdfhdosi
+                    Info here. {placeInfo}
+                </Row>
+                <Row>
+                    <InputGroup className="mb-3" hidden={hideUpateInfo}>
+                        <FormControl type="text" placeholder={props.placeInfo} onChange={onInfoInput} />
+                        <InputGroup.Append>
+                            <Button onClick={onInfoUpdated} variant="primary" >Update Info</Button>
+                        </InputGroup.Append>
+                    </InputGroup>
                 </Row>
                 <Row>
                     <h3>Reviews:</h3>
@@ -58,7 +87,7 @@ export default function Place(props) {
                     </InputGroup>
                 </Row>
                 <Row>
-                    <Button >Update</Button> &nbsp;&nbsp;&nbsp;
+                    <Button onClick={updateInfo}>Update</Button> &nbsp;&nbsp;&nbsp;
                     <Button >Delete</Button> &nbsp;&nbsp;&nbsp;
                     <Button onClick={addAReview}>Add Review</Button>
                 </Row>
