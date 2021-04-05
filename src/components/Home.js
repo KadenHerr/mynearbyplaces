@@ -15,6 +15,8 @@ export default function Home(props) {
     const [placeInfo, setPlaceInfo] = useState("");
     const [placeList, setPlaceList] = useState([]);
 
+    const [placeCount, setPlaceCount] = useState(0);
+
     // Get the place to be added's Title
     let onTitleInput = (event) => {
         setPlaceTitle(event.target.value);
@@ -28,9 +30,8 @@ export default function Home(props) {
     // Add a place to the place list from the place input
     let onPlaceSubmitted = (event) => {
         placeList.push(<Place placeInfo={placeInfo} name={placeTitle} />);
-        // !!!!!!!!! NOT EFFICIENT. FIND A BETTER WAY !!!!!!!!!!!
-        let newPlaceList = placeList.map((x) => x);
-        setPlaceList(newPlaceList);
+       // Works as a forced refresh so placeList will update
+        setPlaceCount(placeCount+1);
     }
 
     return (
