@@ -10,10 +10,6 @@ function NavigationBar(props) {
 
     const [searchText, setSearchText] = useState('');
 
-    let onAddPlace = (event) => {
-        window.location.reload();
-    }
-
     let onSearchSubmitted = (event) => {
         alert("Already displaying all "+searchText);
     }
@@ -24,10 +20,6 @@ function NavigationBar(props) {
 
     return (
         <Navbar bg="dark" expand="lg" variant="dark">
-
-            <Nav.Link>
-                <Button onClick={onAddPlace}>Add A Place</Button>
-            </Nav.Link>
             <Nav.Link>
                 <InputGroup className="mb-3" >
                     <FormControl type="text" placeholder="Search..." onChange={onSearchInput}/>

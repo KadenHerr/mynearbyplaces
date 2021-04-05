@@ -62,14 +62,14 @@ export default function Place(props) {
         <Container className='Place'>
             <Col>
                 <Row>
-                    <h2>{props.name}Title</h2>
+                    <h2>{props.name}</h2>
                 </Row>
                 <Row>
-                    Info here. {placeInfo}
+                    {placeInfo}
                 </Row>
                 <Row>
                     <InputGroup className="mb-3" hidden={hideUpateInfo}>
-                        <FormControl type="text" placeholder={props.placeInfo} onChange={onInfoInput} />
+                        <FormControl type="text" placeholder="Update Info" onChange={onInfoInput} />
                         <InputGroup.Append>
                             <Button onClick={onInfoUpdated} variant="primary" >Update Info</Button>
                         </InputGroup.Append>

@@ -39,17 +39,22 @@ export default function Home(props) {
 
 
     return (
-        <Container className='Place'>
+        <Container >
+            <Container className='Place'>
+                <Col>
+                    <Row>
+                        <InputGroup className="mb-3" hidden={props.hideAddPlace}>
+                            <FormControl type="text" placeholder="Enter Title" onChange={onTitleInput} />
+                            <FormControl type="text" placeholder="Enter Info" onChange={onInfoInput} />
+                            <InputGroup.Append>
+                                <Button onClick={onPlaceSubmitted} variant="primary" >Submit Place</Button>
+                            </InputGroup.Append>
+                        </InputGroup>
+                    </Row>
+
+                </Col>
+            </Container>
             <Col>
-                <Row>
-                    <InputGroup className="mb-3" hidden={props.hideAddPlace}>
-                        <FormControl type="text" placeholder="Enter Title" onChange={onTitleInput} />
-                        <FormControl type="text" placeholder="Enter Info" onChange={onInfoInput} />
-                        <InputGroup.Append>
-                            <Button onClick={onPlaceSubmitted} variant="primary" >Submit Place</Button>
-                        </InputGroup.Append>
-                    </InputGroup>
-                </Row>
                 <Row>
                     {placeList}
                 </Row>

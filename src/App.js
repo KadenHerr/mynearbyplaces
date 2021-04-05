@@ -12,7 +12,6 @@ function App() {
         <Container fluid>
             <NavigationBar />
             <Home />
-            <Place />
         </Container>
     );
 }
