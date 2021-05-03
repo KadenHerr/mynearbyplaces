@@ -7,11 +7,13 @@ import FormControl from 'react-bootstrap/FormControl'
 import { useState } from 'react';
 import Place from './Place';
 import '../App.css'
+import api from '../communication/api';
 
 
 export default function Home(props) {
 
     const [placeTitle, setPlaceTitle] = useState("");
+    const [placeAddress, setPlaceAddress] = useState('');
     const [placeInfo, setPlaceInfo] = useState("");
     const [placeList, setPlaceList] = useState([]);
 
@@ -27,9 +29,28 @@ export default function Home(props) {
         setPlaceInfo(event.target.value);
     }
 
+    // Get the place's address
+    let onAddressInput = (event) => {
+        setPlaceAddress(event.target.value);
+    }
+
     // Add a place to the place list from the place input
     let onPlaceSubmitted = (event) => {
-        placeList.push(<Place placeInfo={placeInfo} name={placeTitle} />);
+        /*
+        let place = {name: placeTitle, address: placeAddress, info: placeInfo};
+        api.addPlace(place)
+        .then(() => {
+            setPlaceTitle('');
+            setPlaceTitle('');
+            setPlaceInfo('');
+            // TODO: Reload the places list maybe?
+        })
+        .catch(e => console.log(e));
+        */
+        placeList.push(<Place placeInfo={placeInfo} name={placeTitle} address={placeAddress}/>);
+        setPlaceTitle('');
+        setPlaceAddress('');
+        setPlaceInfo('');
        // Works as a forced refresh so placeList will update
         setPlaceCount(placeCount+1);
     }
@@ -40,8 +61,9 @@ export default function Home(props) {
                 <Col>
                     <Row>
                         <InputGroup className="mb-3" hidden={props.hideAddPlace}>
-                            <FormControl type="text" placeholder="Enter Title" onChange={onTitleInput} />
-                            <FormControl type="text" placeholder="Enter Info" onChange={onInfoInput} />
+                            <FormControl type="text" placeholder="Enter Title" value={placeTitle} onChange={onTitleInput} />
+                            <FormControl type="text" placeholder="Enter Address" value={placeAddress} onChange={onAddressInput} />
+                            <FormControl type="text" placeholder="Enter Info" value={placeInfo} onChange={onInfoInput} />
                             <InputGroup.Append>
                                 <Button onClick={onPlaceSubmitted} variant="primary" >Submit Place</Button>
                             </InputGroup.Append>

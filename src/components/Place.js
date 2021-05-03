@@ -69,6 +69,9 @@ export default function Place(props) {
                     <h2>{props.name}</h2>
                 </Row>
                 <Row>
+                    <h5>{props.address}</h5>
+                </Row>
+                <Row>
                     {placeInfo}
                 </Row>
                 <Row>
