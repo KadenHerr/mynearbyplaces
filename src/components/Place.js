@@ -17,7 +17,6 @@ export default function Place(props) {
     const [hideUpateInfo, setHideUpateInfo] = useState(true);
     const [placeInfo, setPlaceInfo] = useState(props.placeInfo);
 
-    const [nextReview, setNextReview] = useState('');
     const [reviewComment, setReviewComment] = useState('');
     const [reviewUsername, setReviewUsername] = useState('');
     const [hideAddReview, setHideAddReview] = useState(true);

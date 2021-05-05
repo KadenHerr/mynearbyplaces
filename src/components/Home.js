@@ -15,9 +15,7 @@ export default function Home(props) {
     const [placeTitle, setPlaceTitle] = useState("");
     const [placeAddress, setPlaceAddress] = useState('');
     const [placeInfo, setPlaceInfo] = useState("");
-    const [placeList, setPlaceList] = useState(["Loading"]);
-
-    const [placeCount, setPlaceCount] = useState(0);
+    const [placeList, setPlaceList] = useState(["Loading..."]);
 
     // Get the place to be added's Title
     let onTitleInput = (event) => {
@@ -36,28 +34,23 @@ export default function Home(props) {
 
     // Add a place to the place list from the place input
     let onPlaceSubmitted = (event) => {
-        /*
-        let place = {name: placeTitle, address: placeAddress, info: placeInfo};
+
+        // Add the place to the api.
+        let place = {"name": placeTitle, "address": placeAddress, "info": placeInfo};
         api.addPlace(place)
-        .then(() => {
-            setPlaceTitle('');
-            setPlaceTitle('');
-            setPlaceInfo('');
-            // TODO: Reload the places list maybe?
-        })
+        .then(() => { console.log(`The place ${placeTitle} was added successfully.`)})
         .catch(e => console.log(e));
-        */
+
+        // Add the place to the place list.
         placeList.push(<Place placeInfo={placeInfo} name={placeTitle} address={placeAddress}/>);
         setPlaceTitle('');
         setPlaceAddress('');
         setPlaceInfo('');
-       // Works as a forced refresh so placeList will update
-        setPlaceCount(placeCount+1);
     }
 
     // Check if the places need to be loaded
     useEffect(() => {
-        if(placeList[0] === "Loading") {
+        if(placeList[0] === "Loading...") {
             api.getPlaces()
             .then(places => setupPlaceList(places))
             .catch(e => console.log(e));
