@@ -33,10 +33,10 @@ let addReview = (review) => {
 // Search for a place by name and/or location
 let searchPlaces = (place) => {
     let query = "/search?";
-    if (!place.name === "") {
+    if (!(place.name === "")) {
         query += `placeName=${place.name}`;
     }
-    if (!place.address === "") {
+    if (!(place.address === "")) {
         query += `&location=${place.address}`;
     }
     return fetch(apiHost + query)

@@ -20,3 +20,13 @@
     border-radius: 8px;
 
 }
+
+.Title {
+    text-shadow: 2px 2px #02feff;
+    color: #ff9305;
+    margin-left: 20px;
+}
+
+.Site {
+    background-color: #afafaf;
+}

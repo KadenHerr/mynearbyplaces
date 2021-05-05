@@ -1,8 +1,4 @@
-import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import Button from 'react-bootstrap/Button';
-import InputGroup from 'react-bootstrap/InputGroup'
-import FormControl from 'react-bootstrap/FormControl'
 import { useState } from 'react';
 import '../App.css'
 
@@ -20,14 +16,9 @@ function NavigationBar(props) {
 
     return (
         <Navbar bg="dark" expand="lg" variant="dark">
-            <Nav.Link>
-                <InputGroup className="mb-3" >
-                    <FormControl type="text" placeholder="Search..." onChange={onSearchInput}/>
-                    <InputGroup.Append>
-                        <Button onClick={onSearchSubmitted} variant="outline-primary">Search</Button>
-                    </InputGroup.Append>
-                </InputGroup>
-            </Nav.Link>
+            <h1 className="Title">
+                <i>My Nearby Places</i>
+            </h1>
 
         </Navbar>
     );

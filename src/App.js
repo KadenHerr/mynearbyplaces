@@ -7,7 +7,7 @@ function App() {
 
 
     return (
-        <Container fluid>
+        <Container fluid className="Site">
             <NavigationBar />
             <Home />
         </Container>
