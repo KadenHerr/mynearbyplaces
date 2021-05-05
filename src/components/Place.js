@@ -4,8 +4,9 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Review from './Review';
+import api from '../communication/api';
 
 
 import '../App.css'
@@ -17,8 +18,10 @@ export default function Place(props) {
     const [placeInfo, setPlaceInfo] = useState(props.placeInfo);
 
     const [nextReview, setNextReview] = useState('');
+    const [reviewComment, setReviewComment] = useState('');
+    const [reviewUsername, setReviewUsername] = useState('');
     const [hideAddReview, setHideAddReview] = useState(true);
-    const [reviewList, setReviewList] = useState([]);
+    const [reviewList, setReviewList] = useState(null);
 
     const [hidePlace, setHidePlace] = useState(false);
 
@@ -45,22 +48,50 @@ export default function Place(props) {
         setHideAddReview(!hideAddReview);
     }
 
+    // Get the review username input
+    let onReviewUsernameInput = (event) => {
+        setReviewUsername(event.target.value);
+    }
+
     // Get the review text input
-    let onReviewInput = (event) => {
-        setNextReview(event.target.value);
+    let onReviewCommentInput = (event) => {
+        setReviewComment(event.target.value);
     }
 
     // Add a review to the review list from the review input
     let onReviewSubmitted = (event) => {
+        // Add the review to the review list.
         setHideAddReview(true);
-        reviewList.push(<Review text={nextReview} />);
-        //setReviewList(reviewList);
+        reviewList.push(<Review username={reviewUsername} text={reviewComment} />);
+        setReviewUsername("");
+        setReviewComment("");
+
+        // Add the review to the api.
+        let review = {"username": reviewUsername, "comment": reviewComment, "placename": props.name};
+        api.addReview(review)
+        .then(() => { console.log(`Review by ${reviewUsername} was added successfully.`)})
+        .catch(e => console.log(e));
     }
 
     let deletePlace = (event) => {
         setHidePlace(true);
     }
 
+    // Set up the review list
+    useEffect(() => {
+        if (reviewList === null) {
+            let list = [];
+            for (let r in props.reviews) {
+                // Remove blank reviews from the list
+                if ((props.reviews[r].comment === null) && (props.reviews[r].comment === null)) {
+                    continue;
+                }
+                list.push(<Review text={props.reviews[r].comment} username={props.reviews[r].username} />);
+            }
+            setReviewList(list);
+        }
+
+    });
 
     return (
         <Container className='Place' hidden={hidePlace}>
@@ -90,7 +121,8 @@ export default function Place(props) {
                 </Row>
                 <Row>
                     <InputGroup className="mb-3" hidden={hideAddReview}>
-                        <FormControl type="text" placeholder="Enter Review" onChange={onReviewInput} />
+                        <FormControl type="text" placeholder="Enter Username" value={reviewUsername} onChange={onReviewUsernameInput} />
+                        <FormControl type="text" placeholder="Enter Review" value={reviewComment} onChange={onReviewCommentInput} />
                         <InputGroup.Append>
                             <Button onClick={onReviewSubmitted} variant="primary" >Submit Review</Button>
                         </InputGroup.Append>

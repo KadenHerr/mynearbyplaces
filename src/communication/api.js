@@ -16,12 +16,12 @@ let addPlace = (place) => {
 // Get all of the palces
 let getPlaces = () => {
     return fetch(apiHost + '/places')
-    .then(response => response.json());
+        .then(response => response.json());
 }
 
 // Add a review to a specified place.
 let addReview = (review) => {
-    return fetch(apiHost + '/review/:' + review.place, {
+    return fetch(apiHost + '/review/' + review.placename, {
         method: 'post',
         headers: {
             'Content-Type': 'application/json'
@@ -32,8 +32,15 @@ let addReview = (review) => {
 
 // Search for a place by name and/or location
 let searchPlaces = (place) => {
-    return fetch(apiHost + `/search/:${place.name}/:${place.location}`)
-    .then(response => response.json());
+    let query = "/search?";
+    if (!place.name == "") {
+        query += `placeName=${place.name}`;
+    }
+    if (!place.address == "") {
+        query += `&location=${place.address}`;
+    }
+    return fetch(apiHost + query)
+        .then(response => response.json());
 }
 
 let api = {
